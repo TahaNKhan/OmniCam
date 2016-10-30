@@ -1,11 +1,35 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
+
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+
+<head>
+    <% include ./partials/header %>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="jumbotron">
+                <h1>OmniCam</h1>
+            </div>
+        </div>
+        <div class="row">
+            <form method="post" action="/login">
+                <div class="col-sm-4">
+
+                    <input name="username" class="form-control" placeholder="Enter Username">
+                    <br>
+
+                    <input name="password" class="form-control" placeholder="Enter Password" type="password">
+                    <br>
+                    <button class="btn btn-primary">Submit</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</body>
+
+
 </html>
