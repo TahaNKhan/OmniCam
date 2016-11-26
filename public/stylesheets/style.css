@@ -19,14 +19,13 @@ h1 {
 
 h2{
   font-family: 'Dosis', sans-serif;
-  font-size: 50px;
+  color: white;
+  font-size: 60px;
 }
 
 .container-fluid{
   text-align: center;
 }
-
-
 
 .btn {
   border-radius: 2px;
@@ -35,11 +34,11 @@ h2{
   color: white;
 }
 
+
 .resize-drag {
   background-color: black;
-  color: white;
   border-radius: 2px;
-  padding: 2px;
+  padding: 20px;
   margin: 20px 20px;
 
   width: 560px;
