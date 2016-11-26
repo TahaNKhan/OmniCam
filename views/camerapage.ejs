@@ -9,11 +9,12 @@
 	<script type="text/javascript" src="http://code.interactjs.io/v1.2.6/interact.js"></script>
 </head>
 
-<body>
+<body style="background: #4d4d4d">
     <div class="container">
        
         <h2>OMNICAM</h2> <button class="btn btn-primary">Edit Cameras</button> <button class="btn btn-primary">Sign Out</button> <button class="btn btn-primary">+</button> 
-		
+	
+	</div>
 
 <script> 
 // target elements with the "draggable" class
@@ -62,23 +63,27 @@ interact('.draggable')
   // this is used later in the resizing and gesture demos
   window.dragMoveListener = dragMoveListener;
   
-
 interact('.resize-drag')
-	.draggable({
-		onmove: window.dragMoveListener
-	})
-	.resizable({
-		preserveAspectRatio: true,
-		edges: { left: true, right: true, bottom: true, top: true }
-	})
-	.on('resizemove', function (event) {
-		var target = event.target,
-			x = (parseFloat(target.getAttribute('data-x')) || 0),
-			y = (parseFloat(target.getAttribute('data-y')) || 0);
-	
+  .draggable({
+    onmove: window.dragMoveListener
+  })
+  .resizable({
+    preserveAspectRatio: true,
+    edges: { left: true, right: true, bottom: true, top: true }
+  })
+  .on('resizemove', function (event) {
+    var iFrame = document.getElementById( 'iFrame1' );
+    var target = event.target,
+        x = (parseFloat(target.getAttribute('data-x')) || 0),
+        y = (parseFloat(target.getAttribute('data-y')) || 0);
+
     // update the element's style
     target.style.width  = event.rect.width + 'px';
     target.style.height = event.rect.height + 'px';
+	
+	//change the size of the video
+	iFrame.width = target.style.width;
+	iFrame.height = target.style.height;
 
     // translate when resizing from top or left edges
     x += event.deltaRect.left;
@@ -89,19 +94,21 @@ interact('.resize-drag')
 
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
-	});
+	
+    
+  });
+
 </script>
 			
-			<div class="resize-container">
+		<div class="resize-container">
 			<div class="resize-drag">
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"></iframe></div>
-			<div class="resize-drag">
-				<img src="https://www.placebear.com/1280/720" width="100%" height="100%"></div>
-			</div>
+                <iframe src="https://player.twitch.tv/?channel=tsm_biofrost" height="315" width="560" frameborder="0" id="iFrame1"></iframe></div>
+		</div>	
 
         <br>
 
-</div>
+
+
 
 </body>
 
