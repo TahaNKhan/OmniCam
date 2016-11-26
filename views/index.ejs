@@ -4,27 +4,27 @@
 
 <head>
     <% include ./partials/header %>
+	<link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
 </head>
 
-<body>
+<body style="background-image: url(http://cdn.homedit.com/wp-content/uploads/2014/06/front-yard-flower-beds.jpg")">
     <div class="container-fluid">
-        <div class="row">
-            <div class="jumbotron">
-                <h1>OmniCam</h1>
-            </div>
-        </div>
+        
+        <h1>OMNICAM</h1> 
+        
         <div class="row">
             <form method="post" action="/login">
-                <div class="col-sm-4">
-
-                    <input name="username" class="form-control" placeholder="Enter Username">
+               <div class="col-sm-4">
+			   </div>
+			   <div class="col-sm-4">
+                    <input type="text" name="username" class="form-control" placeholder="Enter Username" required>
                     <br>
 
-                    <input name="password" class="form-control" placeholder="Enter Password" type="password">
+                    <input type="password" name="password" class="form-control" placeholder="Enter Password" required>
                     <br>
-                    <button class="btn btn-primary">Submit</button>
+                    <button class="btn btn-default btn-block" type="submit">Submit</button> &nbsp;&nbsp;
+					
                 </div>
-
             </form>
         </div>
     </div>
