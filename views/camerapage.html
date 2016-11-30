@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+
+<html>
+
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+	<link href="./stylesheets/style.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+	<script type="text/javascript" src="http://code.interactjs.io/v1.2.6/interact.js"></script>
+</head>
+
+<body style="background: #4d4d4d">
+    <div class="container">
+       
+        <h2>OMNICAM</h2> <button class="btn btn-primary" onclick="add()">Add Camera</button> <button class="btn btn-primary" onclick="remove()">Remove Camera</button> <a href="/"><button class="btn btn-primary">Sign Out</button></a> 
+	
+	</div>
+
+<script> 
+// target elements with the "draggable" class
+interact('.draggable')
+  .draggable({
+    // enable inertial throwing
+    inertia: true,
+    // keep the element within the area of it's parent
+    restrict: {
+      restriction: "parent",
+      endOnly: true,
+      elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+    },
+    // enable autoScroll
+    autoScroll: true,
+
+    // call this function on every dragmove event
+    onmove: dragMoveListener,
+    // call this function on every dragend event
+    onend: function (event) {
+      var textEl = event.target.querySelector('p');
+
+      textEl && (textEl.textContent =
+        'moved a distance of '
+        + (Math.sqrt(event.dx * event.dx +
+                     event.dy * event.dy)|0) + 'px');
+    }
+  });
+
+  function dragMoveListener (event) {
+    var target = event.target,
+        // keep the dragged position in the data-x/data-y attributes
+        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+        y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+    // translate the element
+    target.style.webkitTransform =
+    target.style.transform =
+      'translate(' + x + 'px, ' + y + 'px)';
+
+    // update the posiion attributes
+    target.setAttribute('data-x', x);
+    target.setAttribute('data-y', y);
+  }
+
+  // this is used later in the resizing and gesture demos
+  window.dragMoveListener = dragMoveListener;
+  
+interact('.resize-drag')
+  .draggable({
+    onmove: window.dragMoveListener
+  })
+  .resizable({
+    preserveAspectRatio: true,
+    edges: { left: true, right: true, bottom: true, top: true }
+  })
+  .on('resizemove', function (event) {
+    var iFrame = document.getElementById( 'iFrame1' );
+    var target = event.target,
+        x = (parseFloat(target.getAttribute('data-x')) || 0),
+        y = (parseFloat(target.getAttribute('data-y')) || 0);
+
+    // update the element's style
+    target.style.width  = event.rect.width + 'px';
+    target.style.height = event.rect.height + 'px';
+	
+	//change the size of the video
+	iFrame.width = target.style.width;
+	iFrame.height = target.style.height;
+
+    // translate when resizing from top or left edges
+    x += event.deltaRect.left;
+    y += event.deltaRect.top;
+
+    target.style.webkitTransform = target.style.transform =
+        'translate(' + x + 'px,' + y + 'px)';
+
+    target.setAttribute('data-x', x);
+    target.setAttribute('data-y', y);
+	
+    
+  });
+  
+  
+	//camera add & remove functions
+	document.getElementById("toggleCam").style.display = "none";
+	var camName;
+	var camExists = false;
+	
+	function add(){
+		if(camName = prompt("A webcam has been detected. What name would you like to assign it?"))
+		document.getElementById("toggleCam").style.display = "block";
+		
+		camExists = true;
+		alert("TIP: Try clicking and dragging the camera window!");
+	} 
+	
+	function remove(){
+		
+		if(!camExists)
+			alert("You have no cameras added.");
+		else{
+			if(confirm(camName + " detected. Are you sure you would like to remove this camera?"))
+				document.getElementById("toggleCam").style.display = "none";
+		}
+	}
+  
+</script>
+		
+	<div id="toggleCam" style="display: none">		
+		<div class="resize-container">
+			<div class="resize-drag">
+                <iframe src="https://player.twitch.tv/?channel=tsm_biofrost" height="315" width="560" frameborder="0" id="iFrame1"></iframe></div></div>
+	</div>	
+
+        <br>
+
+
+
+
+</body>
+
+
+</html>
